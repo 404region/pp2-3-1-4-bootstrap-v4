@@ -30,14 +30,14 @@
                         <td th:text="${user.lastName}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.age}"></td>
-                        <td><a th:href="@{user-update?id={id}(id=${user.id})}">Edit</a></td>
-                        <td><a th:href="@{user-delete?id={id}(id=${user.id})}">Delete</a></td>
+                        <td><a th:href="@{admin/user-update?id={id}(id=${user.id})}">Edit</a></td>
+                        <td><a th:href="@{admin/user-delete?id={id}(id=${user.id})}">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <p><a href="/user-create">Create user</a></p>
+        <p><a href="/admin/new">Create user</a></p>
     </div>
 </body>
 </html>

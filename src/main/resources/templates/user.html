@@ -4,20 +4,29 @@
     <title>Spring Security Example</title>
 </head>
 <body>
+
 <h1>User, welcome to your personality page!</h1>
-<div>
+<div style="padding: 30px 60px">
     <p>Profile:</p>
+    <hr />
     <th:block th:object="${user}">
-        <p>Name:</p>
-        <p th:text="${user.getName()}"></p>
-        <p>Last Name:</p>
-        <p th:text="${user.lastName}"></p>
-        <p>Username:</p>
-        <p th:text="${user.getUsername()}"></p>
-        <p>Age:</p>
-        <p th:text="${user.age}"></p>
+        <p>Name:
+        <span th:text="${user.getName()}"></span>
+        </p>
+        <p>Last Name:
+        <span th:text="${user.lastName}"></span>
+        </p>
+        <p>Username:
+        <span th:text="${user.getUsername()}"></span>
+        </p>
+        <p>Age:
+        <span th:text="${user.age}"></span>
+        </p>
     </th:block>
 </div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign out"/>
+</form>
 
 
 </body>
