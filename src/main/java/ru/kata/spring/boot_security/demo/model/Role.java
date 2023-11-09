@@ -1,30 +1,55 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import lombok.Data;
-import ru.kata.spring.boot_security.demo.model.User;
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
 
 @Entity
 @Data
-@Table(name="roles")
-public class Role {
+@Table(name = "roles")
+public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "role_id")
+    private Long roleId;
 
-    @Column(name="name")
-    private String name;
+    @Column(name = "role_name")
+    private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @Transient
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    private Set<User> userSet = new HashSet<>();
+
+
+    public Role(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Role() {
+
+    }
+
+    public Set<User> getUserSet() {
+        return userSet;
+    }
+
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
+    }
+
 
     @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + users +
-                '}';
+    public String getAuthority() {
+        return getRoleName();
     }
 }
