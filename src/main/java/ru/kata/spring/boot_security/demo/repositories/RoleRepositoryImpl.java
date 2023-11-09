@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class RoleRepositoriesImpl implements RoleRepository {
+public class RoleRepositoryImpl implements RoleRepository {
     @PersistenceContext
     EntityManager entityManager;
 

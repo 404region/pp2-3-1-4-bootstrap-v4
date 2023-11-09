@@ -43,9 +43,9 @@
     </tr>
     <tr>
         <td>
-            <label for="surname">Enter surname</label>
-            <input type="text" th:field="*{surname}" id="surname"/>
-            <p style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname error</p>
+            <label for="lastName">Enter lastName</label>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+            <p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName error</p>
         </td>
     </tr>
     <tr>
@@ -53,14 +53,6 @@
             <label for="age">Enter age</label>
             <input type="number" min="0" max="127" th:field="*{age}" id="age">
             <p style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"> age error</p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label for="citizenship">Enter citizenship</label>
-            <input type="text" th:field="*{citizenship}" id="citizenship" required/>
-            <p style="color: red" th:if="${#fields.hasErrors('citizenship')}" th:errors="*{citizenship}">citizenship
-                error</p>
         </td>
     </tr>
     <tr>

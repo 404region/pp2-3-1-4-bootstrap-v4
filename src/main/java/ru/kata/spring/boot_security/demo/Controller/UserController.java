@@ -25,6 +25,6 @@ public class UserController {
         System.out.println("principal.getName " + principal.getName());
         System.out.println("User " + userService.getUserByUsername(principal.getName()));
         model.addAttribute("user", userService.getUserByUsername(principal.getName()));
-        return "/user";
+        return "user";
     }
 }
