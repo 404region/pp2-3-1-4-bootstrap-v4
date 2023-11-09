@@ -38,10 +38,10 @@ public class Init {
         adminRole.add(roleService.getRoleById(1L));
         userRole.add(roleService.getRoleById(2L));
 
-        userService.updateUser(new User("admin", "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", adminRole));
-        userService.updateUser(new User("user1", "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
-        userService.updateUser(new User("user2", "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
-        userService.updateUser(new User("user3", "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
+        userService.updateUser(new User("Ann", "S", "admin", 99, "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", adminRole));
+        userService.updateUser(new User("Mary", "N" , "user1",115,  "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
+        userService.updateUser(new User("Taylor", "S", "user2", 12,  "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
+        userService.updateUser(new User("Cat", "N", "user3",3,  "$2a$12$pL463fKZNkO.T1mgZ52r2.gtZX8lvKj.ytgkyI6pzKqtlSeuadtPy", userRole));
 
     }
 }
