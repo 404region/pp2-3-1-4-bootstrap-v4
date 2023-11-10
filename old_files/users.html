@@ -1,38 +1,12 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Users</title>
     <style>
-        table th, table td {
-            padding: 10px 5px;
-            font-family: sans-serif;
-            font-size: 14px;
-            border-style: solid;
-            border-width: 1px;
-            background: white;
-
-        }
-        #cssTable td
-        {
-            text-align: center;
-            vertical-align: middle;
-        }
-        button {
-            padding: 5px;
-            background-color: white;
-            color: green;
-        }
-        .buttonDelete {
-            background: white;
-            color: darkred;
-        }
-        .buttonEdit {
-            background: white;
-            color: blue;
-            position: relative;
-            left: 50%;
-            transform: translate(-50%, 0);
+        table {
+            border: 1px solid gray;
         }
     </style>
 </head>
@@ -45,7 +19,7 @@
     <tr>
         <th th:width="50">UserId</th>
         <th th:width="120">Name</th>
-        <th th:width="120">LastName</th>
+        <th th:width="120">lastName</th>
         <th th:width="50">Age</th>
         <th th:width="50">Username</th>
         <th th:width="100">Password</th>
@@ -79,9 +53,57 @@
     </tr>
 </table>
 <br>
-    <form th:action="@{/logout}">
+<form th:action="@{/logout}">
     <input type="submit" value="Logout"/>
-    </form>
+</form>
 </br>
 </body>
 </html>
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+    <div th:switch="${users}">
+        <h2 th:case="null">Users 404...</h2>
+        <div th:case="*">
+            <h2>Users</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>username</th>
+                    <th>Age</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user: ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.age}"></td>
+                        <td><a th:href="@{admin/user-update?id={id}(id=${user.id})}">Edit</a></td>
+                        <td><a th:href="@{admin/user-delete?id={id}(id=${user.id})}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><a href="/admin/new">Create user</a></p>
+    </div>
+</body>
+</html>
+//-->

@@ -1,33 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8"/>
+    <title>User</title>
+    <style>
+        table th, table td, form {
+            padding: 10px 5px;
+            font-family: sans-serif;
+            font-size: 14px;
+            border-style: solid;
+            border-width: 1px;
+            background-color: ivory;
+        }
+        #cssTable td
+        {
+            text-align: center;
+            vertical-align: middle;
+        }
+        button {
+            padding: 10px;
+            background: white;
+            color: darkgreen;
+        }
+    </style>
 </head>
 <body>
+<h1>User</h1>
 
-<h1>User, welcome to your personality page!</h1>
-<div style="padding: 30px 60px">
-    <p>Profile:</p>
-    <hr />
-    <th:block th:object="${user}">
-        <p>Name:
-        <span th:text="${user.getName()}"></span>
-        </p>
-        <p>Last Name:
-        <span th:text="${user.lastName}"></span>
-        </p>
-        <p>Username:
-        <span th:text="${user.getUsername()}"></span>
-        </p>
-        <p>Age:
-        <span th:text="${user.age}"></span>
-        </p>
-    </th:block>
-</div>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign out"/>
-</form>
+<table border="1" id="cssTable" th:name="id">
+    <tr>
+        <th th:width="50">UserId</th>
+        <th th:width="120">Name</th>
+        <th th:width="120">LastName</th>
+        <th th:width="50">Age</th>
+        <th th:width="150">Username</th>
+        <th th:width="60">Password</th>
+        <th th:width="50">Role</th>
+    </tr>
+    <td th:utext="${user.userId}">UserId</td>
+    <td th:utext="${user.name}">Name</td>
+    <td th:utext="${user.lastName}">LastName</td>
+    <td th:utext="${user.age}">Age</td>
+    <td th:utext="${user.username}">Username</td>
+    <td th:utext="${user.password}">Password</td>
+    <td th:each="role: ${user.getRoles()}" th:utext="${role.roleName}">role</td>
 
+</table>
 
+<br>
+<button onclick="window.location.href = '/logout'; ">go out</button>
+<!--<button onclick="window.location.href = '/';">Back to users</button>-->
 </body>
 </html>

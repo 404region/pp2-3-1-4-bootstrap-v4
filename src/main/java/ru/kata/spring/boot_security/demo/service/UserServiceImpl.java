@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void removeUser(Long id) {
+        System.out.println("removeUser метод");
         userRepository.deleteById(id);
     }
 

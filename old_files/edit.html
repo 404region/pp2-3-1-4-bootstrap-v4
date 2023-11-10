@@ -44,16 +44,16 @@
         </tr>
         <tr>
             <td>
-                <label for="name">Enter name</label>
+                <label for="name">Enter your name</label>
                 <input type="text" th:field="*{name}" id="name" required/>
                 <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
             </td>
         </tr>
         <tr>
             <td>
-                <label for="lastName">Enter LastName</label>
+                <label for="lastName">Enter lastName</label>
                 <input type="text" th:field="*{lastName}" id="lastName"/>
-                <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName error</div>
+                <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">surname error</div>
             </td>
         </tr>
         <br>
@@ -64,7 +64,6 @@
                 <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</div>
             </td>
         </tr>
-        <br>
         <br>
         <tr>
             <td>
