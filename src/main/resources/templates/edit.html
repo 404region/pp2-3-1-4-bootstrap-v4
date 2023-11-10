@@ -35,15 +35,12 @@
                     <input type="text" th:field="*{lastName}" id="lastName"/>
                 </td>
             </tr>
-            <br>
             <tr>
                 <td>
                     <label for="age">Enter age</label>
                     <input type="number" min="0" max="127" th:field="*{age}" id="age">
                 </td>
             </tr>
-            <br>
-            <br>
             <tr>
                 <td>
                     <label for="username">Enter username</label>
@@ -52,8 +49,6 @@
                         error</p>
                 </td>
             </tr>
-            <br>
-            <br>
             <tr>
                 <td>
                     <label for="password">Enter password</label>
@@ -68,6 +63,7 @@
                         <div
                                 th:each="role : ${allRoles}" class="roleCheckbox">
                             <input type="checkbox"
+
                                    th:name="ids"
                                    th:value="${role.roleId}"
                                    th:id="${'role'+role.roleId}"/>
