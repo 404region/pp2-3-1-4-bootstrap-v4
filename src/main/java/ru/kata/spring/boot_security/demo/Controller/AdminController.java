@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/new")
-    public String add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
+    public String add(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model, @RequestParam List<Long> ids) {
         // Checking validation exception
         if (bindingResult.hasErrors()) {
@@ -92,8 +92,9 @@ public class AdminController {
     }
 
     @PatchMapping(value = "/edit")
-    public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
+    public String update(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model , @RequestParam List<Long> ids) {
+        System.out.println("ids "+ ids);
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("allRoles", roleService.getAllRoles());
