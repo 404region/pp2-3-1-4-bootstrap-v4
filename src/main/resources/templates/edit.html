@@ -10,6 +10,9 @@
     <style>
         table {
         }
+        td.password {
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +53,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="password">
                     <label for="password">Enter password</label>
                     <input type="text" th:field="*{password}" id="password" required/>
                     <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password

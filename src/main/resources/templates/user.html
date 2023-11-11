@@ -27,7 +27,6 @@
         <th>LastName</th>
         <th>Age</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Role</th>
     </tr>
     <td th:utext="${user.userId}">UserId</td>
@@ -35,7 +34,6 @@
     <td th:utext="${user.lastName}">LastName</td>
     <td th:utext="${user.age}">Age</td>
     <td th:utext="${user.username}">Username</td>
-    <td th:utext="${user.password}">Password</td>
     <td th:each="role: ${user.getRoles()}" th:utext="${role.roleName}">role</td>
 
 </table>

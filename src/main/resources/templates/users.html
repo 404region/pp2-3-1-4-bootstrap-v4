@@ -29,7 +29,6 @@
         <th>LastName</th>
         <th>Age</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Role</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -41,7 +40,6 @@
         <td th:utext="${user.lastName}">LastName</td>
         <td th:utext="${user.age}">Age</td>
         <td th:utext="${user.username}">Username</td>
-        <td th:utext="${user.password}">Password</td>
         <td>
             <th:block th:each="role: ${user.roles}"
                       th:text="${role.getRoleName().replace('ROLE_', ' ')}">Roles

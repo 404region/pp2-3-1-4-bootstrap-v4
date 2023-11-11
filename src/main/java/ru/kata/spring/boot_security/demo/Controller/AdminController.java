@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,12 +25,14 @@ public class AdminController {
 
     private final RoleService roleService;
     private final UserService userService;
+    private PasswordEncoder passwordEncoder;
     private static final String REDIRECT = "redirect:/admin";
 
     @Autowired
-    public AdminController(RoleService roleService, UserService userService) {
+    public AdminController(RoleService roleService, UserService userService, PasswordEncoder  passwordEncoder) {
         this.roleService = roleService;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "")
@@ -56,16 +59,15 @@ public class AdminController {
             , Model model, @RequestParam List<Long> ids) {
         // Checking validation exception
         if (bindingResult.hasErrors()) {
-
             model.addAttribute("allRoles", roleService.getAllRoles());
             Set<Role> assignedRole = roleService.findAllRoleId(ids);
             user.setRoles(assignedRole);
-
             return "create";
         } else {
             try {
                 Set<Role> assignedRole = roleService.findAllRoleId(ids);
                 user.setRoles(assignedRole);
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userService.updateUser(user);
                 return REDIRECT;
             } catch (DataIntegrityViolationException e) {
