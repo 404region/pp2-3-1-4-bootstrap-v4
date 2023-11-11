@@ -57,27 +57,11 @@ public class AdminController {
     @PostMapping(value = "/new")
     public String add(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model, @RequestParam List<Long> ids) {
-        // Checking validation exception
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("allRoles", roleService.getAllRoles());
             Set<Role> assignedRole = roleService.findAllRoleId(ids);
             user.setRoles(assignedRole);
-            return "create";
-        } else {
-            try {
-                Set<Role> assignedRole = roleService.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                userService.updateUser(user);
-                return REDIRECT;
-            } catch (DataIntegrityViolationException e) {
-                bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
-                model.addAttribute("allRoles", roleService.getAllRoles());
-                Set<Role> assignedRole = roleService.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                return "create";
-            }
-        }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.updateUser(user);
+            return REDIRECT;
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -88,35 +72,30 @@ public class AdminController {
 
     @GetMapping(value = "/edit/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("allRoles", roleService.getAllRoles());
+        User user = userService.getUserById(id);
+        List<Role> allRoles = roleService.getAllRoles();
+        Set<Role> userRoles = user.getRoles();
+
+        for (Role role : allRoles) {
+            if (userRoles.contains(role)) {
+                role.setActive(true);
+            } else {
+                role.setActive(false);
+            }
+        }
+
+        System.out.println("assignedRole "+allRoles);
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", allRoles);
         return "edit";
     }
 
     @PatchMapping(value = "/edit")
     public String update(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model , @RequestParam List<Long> ids) {
-        System.out.println("ids "+ ids);
-        if (bindingResult.hasErrors()) {
-
-            model.addAttribute("allRoles", roleService.getAllRoles());
             Set<Role> assignedRole = roleService.findAllRoleId(ids);
             user.setRoles(assignedRole);
-
-            return "edit";
-        } else {
-            try {
-                Set<Role> assignedRole = roleService.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                userService.updateUser(user);
-                return REDIRECT;
-            } catch (DataIntegrityViolationException e) {
-                bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
-                model.addAttribute("allRoles", roleService.getAllRoles());
-                Set<Role> assignedRole = roleService.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                return "edit";
-            }
-        }
+            userService.updateUser(user);
+            return REDIRECT;
     }
 }

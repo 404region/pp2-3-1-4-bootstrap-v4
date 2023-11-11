@@ -22,8 +22,6 @@ public class UserController {
     }
     @GetMapping("")
     public String getAllUsers(Principal principal, Model model ) {
-        System.out.println("principal.getName " + principal.getName());
-        System.out.println("User " + userService.getUserByUsername(principal.getName()));
         model.addAttribute("user", userService.getUserByUsername(principal.getName()));
         return "user";
     }
