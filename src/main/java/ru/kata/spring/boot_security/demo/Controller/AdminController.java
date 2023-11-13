@@ -28,7 +28,6 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
     private final String REDIRECT = "redirect:/admin";
 
-    @Autowired
     public AdminController(RoleService roleService, UserService userService, PasswordEncoder  passwordEncoder) {
         this.roleService = roleService;
         this.userService = userService;
