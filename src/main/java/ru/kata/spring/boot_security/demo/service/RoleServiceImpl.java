@@ -19,7 +19,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
@@ -31,14 +30,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
     public Role getRoleById(Long id) {
         return roleRepository.getById(id);
     }
 
-    @Override
-    @Transactional
-    public Set<Role> findAllRoleId(List<Long> ids) {
-        return roleRepository.findAllId(ids);
-    }
 }

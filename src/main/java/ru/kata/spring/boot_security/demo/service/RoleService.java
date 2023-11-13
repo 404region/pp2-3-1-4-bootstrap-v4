@@ -13,6 +13,4 @@ public interface RoleService {
 
     Role getRoleById(Long id);
 
-    Set<Role> findAllRoleId(List<Long> ids);
-
 }

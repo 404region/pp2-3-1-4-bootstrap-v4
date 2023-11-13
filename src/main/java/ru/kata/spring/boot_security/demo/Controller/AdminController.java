@@ -74,9 +74,7 @@ public class AdminController {
     }
 
     @PatchMapping(value = "/edit")
-    public String update(@ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model , @RequestParam List<Long> ids) {
-            user.setRoles(roleService.findAllRoleId(ids));
+    public String update(@ModelAttribute("user") User user) {
             userService.updateUser(user);
             return REDIRECT;
     }

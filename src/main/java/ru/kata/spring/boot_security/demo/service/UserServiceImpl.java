@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findUserByUsername(username).orElse(null);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (!passwordEncoder.encode(user.getPassword()).equals(getUserById(user.getUserId()).getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        userRepository.updateUser(user);
+        userRepository.save(user);
     }
 
     @Override
@@ -70,12 +70,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean isUsernameNotUnique(String username) {
-        return userRepository.findByUsername(username) != null;
+        return userRepository.findUserByUsername(username) != null;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findUserByUsername(username).orElse(null);
         if (user != null) {
             return user;
         } else {
@@ -83,7 +83,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
-    }
 }

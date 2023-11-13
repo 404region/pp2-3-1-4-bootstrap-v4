@@ -10,7 +10,6 @@ import java.util.Set;
 
 
 @Entity
-@Data
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
@@ -49,9 +48,34 @@ public class Role implements GrantedAuthority {
         this.userSet = userSet;
     }
 
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 
     @Override
     public String getAuthority() {
-        return getRoleName();
+        return this.roleName;
     }
+
+
 }
