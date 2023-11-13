@@ -26,7 +26,7 @@ public class AdminController {
     private final RoleService roleService;
     private final UserService userService;
     private PasswordEncoder passwordEncoder;
-    private static final String REDIRECT = "redirect:/admin";
+    private final String REDIRECT = "redirect:/admin";
 
     @Autowired
     public AdminController(RoleService roleService, UserService userService, PasswordEncoder  passwordEncoder) {
