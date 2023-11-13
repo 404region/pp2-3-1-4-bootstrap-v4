@@ -92,8 +92,7 @@ public class AdminController {
     @PatchMapping(value = "/edit")
     public String update(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model , @RequestParam List<Long> ids) {
-            Set<Role> assignedRole = roleService.findAllRoleId(ids);
-            user.setRoles(assignedRole);
+            user.setRoles(roleService.findAllRoleId(ids));
             userService.updateUser(user);
             return REDIRECT;
     }
