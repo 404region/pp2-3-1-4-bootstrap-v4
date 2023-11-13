@@ -29,7 +29,8 @@ public class UserRepositoryImlp implements UserRepository {
 
     @Override
     public void deleteById(Long id) {
-        entityManager.remove(getById(id));
+        User user = entityManager.getReference(User.class, id);
+        entityManager.remove(user);
     }
 
     @Override
