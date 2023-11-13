@@ -31,10 +31,8 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Set<Role> findAllId(List<Long> ids) {
-        String jpql = "SELECT r FROM Role r WHERE r.id IN :ids";
-        return new HashSet<>(entityManager.createQuery(jpql, Role.class)
+        return new HashSet<>(entityManager.createQuery("SELECT r FROM Role r WHERE r.id IN :ids", Role.class)
                 .setParameter("ids", ids)
                 .getResultList());
     }
-
 }
