@@ -66,7 +66,6 @@
                         <div
                                 th:each="role : ${allRoles}" class="roleCheckbox">
                             <input type="checkbox"
-                                    th:checked="${role.active}"
                                    th:name="ids"
                                    th:value="${role.roleId}"
                                    th:id="${'role'+role.roleId}"/>

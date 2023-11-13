@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Role;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
-    @PersistenceContext
+    @PersistenceContext()
     EntityManager entityManager;
 
     @Override

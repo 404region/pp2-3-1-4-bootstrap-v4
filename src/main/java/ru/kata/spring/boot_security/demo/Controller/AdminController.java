@@ -56,10 +56,7 @@ public class AdminController {
     @PostMapping(value = "/new")
     public String add(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model, @RequestParam List<Long> ids) {
-            Set<Role> assignedRole = roleService.findAllRoleId(ids);
-            user.setRoles(assignedRole);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userService.updateUser(user);
+            userService.addUser(user);
             return REDIRECT;
     }
 
@@ -71,21 +68,8 @@ public class AdminController {
 
     @GetMapping(value = "/edit/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
-        User user = userService.getUserById(id);
-        List<Role> allRoles = roleService.getAllRoles();
-        Set<Role> userRoles = user.getRoles();
-
-        for (Role role : allRoles) {
-            if (userRoles.contains(role)) {
-                role.setActive(true);
-            } else {
-                role.setActive(false);
-            }
-        }
-
-        System.out.println("assignedRole "+allRoles);
-        model.addAttribute("user", user);
-        model.addAttribute("allRoles", allRoles);
+        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("allRoles", roleService.getAllRoles());
         return "edit";
     }
 
