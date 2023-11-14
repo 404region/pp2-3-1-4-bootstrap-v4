@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -142,5 +143,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getRole() {
+        String rolesString = roles.stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.joining(", "));
+        return rolesString;
+
     }
 }

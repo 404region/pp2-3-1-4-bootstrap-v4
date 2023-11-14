@@ -19,4 +19,5 @@ public interface UserService extends UserDetailsService {
     boolean isUsernameNotUnique(String username);
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
 }
