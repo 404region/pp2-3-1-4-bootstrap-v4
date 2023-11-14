@@ -27,119 +27,49 @@ public class AdminController {
 
     private final RoleService roleService;
     private final UserService userService;
-    private static final String REDIRECT = "redirect:/admin";
 
-    @Autowired
-    public AdminController(RoleService roleService, UserService userService) {
-        this.roleService = roleService;
+
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
-    @GetMapping
-    public String getUserPage(Principal principal, Model model) {
-        System.out.println("Попали в метод getAllUsers");
-        User user = userService.getUserByUsername(principal.getName());
-        model.addAttribute("user", user);
+    @GetMapping()
+    public String getUsers(@ModelAttribute("user") User user, Model model,
+                           Principal principal) {
+
+        model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("noAdminRole", !user.isHasAdminRole());
-        return "admin-user-page";
+        model.addAttribute("usingUser", userService.getUserByUsername(principal.getName()));
+        return "admin";
     }
 
-    @PostMapping("/addNewUser")
-    public String addUser(@ModelAttribute("user") User user) {
-        System.out.println("Попали в метод addUser");
+    @PostMapping("/new")
+    public String create(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
-    /*@GetMapping(value = "")
-    public String getAllUsers(Principal principal, Model model) {
-        System.out.println("Попали в метод getAllUsers");
-        User user = userService.getUserByUsername(principal.getName());
-
-        model.addAttribute("user", user);
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("noAdminRole", !user.isHasAdminRole());
-        return "admin-user-page";
-    }
-
-
-
-    @GetMapping(value = "/admin/{id}")
-    public String test(@PathVariable("id") Long id, Model model) {
-        System.out.println("Попали в метод test");
-
-        return "admin-user-page";
-    }
-
-
-    @GetMapping("/addNewUser")
-    public String showCreateUserForm(ModelMap model) {
-        System.out.println("Попали в метод showCreateUserForm класса AdminController");
-        User user = new User();
-        Collection<Role> roles = roleService.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
-        return "new-user-info";
-    }
-
-    @PostMapping("/")
-    public String addUser(@ModelAttribute("user") User user) {
-        System.out.println("Попали в метод корень класса AdminController");
-        userService.addUser(user);
-        return REDIRECT;
-    }
-
-    @GetMapping(value = "/{id}")
-    public String getUserById(@PathVariable("id") Long id, Model model) {
-        System.out.println("Попали в метод getUserById класса AdminController");
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.getUserById(id));
-        return "user";
+        return "redirect:/admin";
     }
 
-    @GetMapping(value = "/new")
-    public String addUser(Model model) {
-        System.out.println("Попали в метод addUser класса AdminController");
-        model.addAttribute("user", new User());
-        model.addAttribute("allRoles", roleService.getAllRoles());
-        return "admin-user-page";
+    @PatchMapping("/update/{id}")
+    public String update(@ModelAttribute("user") User user,
+                         @PathVariable("id") long id) {
+
+        userService.updateUser(id, user);
+        return "redirect:/admin";
     }
 
-    @PostMapping(value = "/new")
-    public String add(@ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model, @RequestParam List<Long> ids) {
-        System.out.println("Попали в метод add класса AdminController");
-        userService.updateUser(user);
-        return "redirect:/admin/users";
-    }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        System.out.println("Попали в метод delete класса AdminController");
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") long id) {
         userService.removeUser(id);
-        return REDIRECT;
+        return "redirect:/admin";
     }
 
-    @GetMapping(value = "/edit/{id}")
-    public String updateUser(@PathVariable("id") Long id, Model model) {
-        System.out.println("Попали в метод updateUser класса AdminController");
-        User user = userService.getUserById(id);
-        List<Role> allRoles = roleService.getAllRoles();
 
-        System.out.println("assignedRole "+allRoles);
-        model.addAttribute("user", user);
-        model.addAttribute("allRoles", allRoles);
-        return "edit";
-    }
-
-    @PatchMapping(value = "/edit")
-    public String update(@ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model) {
-        System.out.println("Попали в метод update класса AdminController");
-        //Set<Role> assignedRole = roleService.findAllRoleId(ids);
-        //user.setRoles(assignedRole);
-        userService.updateUser(user);
-        return REDIRECT;
-    }*/
 
 }

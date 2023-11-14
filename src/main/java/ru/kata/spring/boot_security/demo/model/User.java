@@ -36,6 +36,18 @@ public class User implements UserDetails {
     @Column(name = "username")
     private String username;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "email")
+    private String email;
+
+
     @Column(name = "password")
     private String password;
 
@@ -71,11 +83,12 @@ public class User implements UserDetails {
     private Set <Role> roles = new HashSet<>();
 
 
-    public User(String name, String lastName, String username, int age, String password, Set<Role> roles) {
+    public User(String name, String lastName, String username, String email, int age, String password, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
         this.username = username;
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }
@@ -162,5 +175,18 @@ public class User implements UserDetails {
             }
         }
         return hasAdminRole;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + userId +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -15,6 +15,7 @@ public interface UserService extends UserDetailsService {
     User getUserByUsername(String username);
     void addUser(User user);
     void updateUser(User user);
+    void updateUser(long id, User updatedUser);
     void removeUser(Long id);
     boolean isUsernameNotUnique(String username);
     @Override

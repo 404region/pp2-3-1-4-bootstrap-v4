@@ -40,10 +40,10 @@ public class Init {
         /*adminRole.add(roleService.getRoleById(1L));
         userRole.add(roleService.getRoleById(2L));*/
 
-        userService.addUser(new User("Ann", "S", "admin", 99, "user", adminRole));
-        userService.addUser(new User("Mary", "N" , "user1",115,  "user", userRole));
-        userService.addUser(new User("Taylor", "S", "user2", 12, "user", userRole));
-        userService.addUser(new User("Cat", "N", "user3",3,  "user", userRole));
+        userService.addUser(new User("Ann", "S", "admin", "d@d.ru", 99, "user", adminRole));
+        userService.addUser(new User("Mary", "N" , "user1","u1@d.ru", 115,  "user", userRole));
+        userService.addUser(new User("Taylor", "S", "user2", "u2@d.ru",12, "user",  userRole));
+        userService.addUser(new User("Cat", "N", "user3","u2@d.ru", 3,  "user", userRole));
 
     }
 }

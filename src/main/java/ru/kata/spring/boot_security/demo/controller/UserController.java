@@ -10,16 +10,21 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("")
-    public String getAllUsers(Principal principal, Model model ) {
-        model.addAttribute("user", userService.getUserByUsername(principal.getName()));
+
+    @GetMapping("/user")
+    public String getUsers(Model model, Principal principal) {
+        model.addAttribute("usingUser", userService.getUserByUsername(principal.getName()));
         return "user";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 }
