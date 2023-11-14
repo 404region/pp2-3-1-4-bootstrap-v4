@@ -152,4 +152,15 @@ public class User implements UserDetails {
         return rolesString;
 
     }
+
+    public boolean isHasAdminRole() {
+        boolean hasAdminRole = false;
+        for (Role role : getRoles()) {
+            if (role.getRoleName().equals("ROLE_ADMIN")) {
+                hasAdminRole = true;
+                break;
+            }
+        }
+        return hasAdminRole;
+    }
 }

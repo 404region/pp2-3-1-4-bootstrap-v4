@@ -39,19 +39,12 @@ public class AdminController {
     public String getAllUsers(Principal principal, Model model) {
         System.out.println("Попали в метод getAllUsers");
         User user = userService.getUserByUsername(principal.getName());
-        boolean hasAdminRole = false;
-        for (Role role : user.getRoles()) {
-            if (role.getRoleName().equals("ROLE_ADMIN")) {
-                hasAdminRole = true;
-                break;
-            }
-        }
 
         model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("noAdminRole", !hasAdminRole);
-        System.out.println("hasAdminRole"+ hasAdminRole);
-        System.out.println("noAdminRole"+ !hasAdminRole);
+        model.addAttribute("noAdminRole", !user.isHasAdminRole());
+        System.out.println("hasAdminRole"+ user.isHasAdminRole());
+        System.out.println("noAdminRole"+ !user.isHasAdminRole());
         return "admin-user-page";
     }
 
