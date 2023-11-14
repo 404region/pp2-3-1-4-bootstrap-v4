@@ -219,7 +219,7 @@
                         <div class="card">
                             <h5 class="card-header">Add new user</h5>
                             <div class="card-body text-center">
-                                <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
+                                <form th:method="POST" th:action="@{/admin/addNewUser}" th:object="${user}">
                                     <label class="font-weight-bold" for="firstNameNew">name</label>
                                     <br>
                                     <input class="form-control" type="text" required minlength="2" maxlength="15"

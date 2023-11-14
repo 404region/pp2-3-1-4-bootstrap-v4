@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -15,6 +16,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +35,24 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "")
+    @GetMapping
+    public String getUserPage(Principal principal, Model model) {
+        System.out.println("Попали в метод getAllUsers");
+        User user = userService.getUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("noAdminRole", !user.isHasAdminRole());
+        return "admin-user-page";
+    }
+
+    @PostMapping("/addNewUser")
+    public String addUser(@ModelAttribute("user") User user) {
+        System.out.println("Попали в метод addUser");
+        userService.addUser(user);
+        return "redirect:/admin/";
+    }
+
+    /*@GetMapping(value = "")
     public String getAllUsers(Principal principal, Model model) {
         System.out.println("Попали в метод getAllUsers");
         User user = userService.getUserByUsername(principal.getName());
@@ -42,6 +61,33 @@ public class AdminController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("noAdminRole", !user.isHasAdminRole());
         return "admin-user-page";
+    }
+
+
+
+    @GetMapping(value = "/admin/{id}")
+    public String test(@PathVariable("id") Long id, Model model) {
+        System.out.println("Попали в метод test");
+
+        return "admin-user-page";
+    }
+
+
+    @GetMapping("/addNewUser")
+    public String showCreateUserForm(ModelMap model) {
+        System.out.println("Попали в метод showCreateUserForm класса AdminController");
+        User user = new User();
+        Collection<Role> roles = roleService.getAllRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+        return "new-user-info";
+    }
+
+    @PostMapping("/")
+    public String addUser(@ModelAttribute("user") User user) {
+        System.out.println("Попали в метод корень класса AdminController");
+        userService.addUser(user);
+        return REDIRECT;
     }
 
     @GetMapping(value = "/{id}")
@@ -56,14 +102,15 @@ public class AdminController {
         System.out.println("Попали в метод addUser класса AdminController");
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", roleService.getAllRoles());
-        return "create";
+        return "admin-user-page";
     }
 
     @PostMapping(value = "/new")
     public String add(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model, @RequestParam List<Long> ids) {
+        System.out.println("Попали в метод add класса AdminController");
         userService.updateUser(user);
-        return REDIRECT;
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -93,5 +140,6 @@ public class AdminController {
         //user.setRoles(assignedRole);
         userService.updateUser(user);
         return REDIRECT;
-    }
+    }*/
+
 }
