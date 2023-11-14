@@ -25,14 +25,12 @@ public class AdminController {
 
     private final RoleService roleService;
     private final UserService userService;
-    private PasswordEncoder passwordEncoder;
     private static final String REDIRECT = "redirect:/admin";
 
     @Autowired
-    public AdminController(RoleService roleService, UserService userService, PasswordEncoder  passwordEncoder) {
+    public AdminController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "")
@@ -43,8 +41,6 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("noAdminRole", !user.isHasAdminRole());
-        System.out.println("hasAdminRole"+ user.isHasAdminRole());
-        System.out.println("noAdminRole"+ !user.isHasAdminRole());
         return "admin-user-page";
     }
 
@@ -66,10 +62,6 @@ public class AdminController {
     @PostMapping(value = "/new")
     public String add(@ModelAttribute("user") User user, BindingResult bindingResult
             , Model model, @RequestParam List<Long> ids) {
-        /*System.out.println("Попали в метод add класса AdminController");
-        Set<Role> assignedRole = roleService.(ids);
-        user.setRoles(assignedRole);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));*/
         userService.updateUser(user);
         return REDIRECT;
     }
@@ -86,15 +78,6 @@ public class AdminController {
         System.out.println("Попали в метод updateUser класса AdminController");
         User user = userService.getUserById(id);
         List<Role> allRoles = roleService.getAllRoles();
-        Set<Role> userRoles = user.getRoles();
-
-        for (Role role : allRoles) {
-            if (userRoles.contains(role)) {
-                role.setActive(true);
-            } else {
-                role.setActive(false);
-            }
-        }
 
         System.out.println("assignedRole "+allRoles);
         model.addAttribute("user", user);
