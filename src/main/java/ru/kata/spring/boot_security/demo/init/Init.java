@@ -18,8 +18,8 @@ import java.util.Set;
 
 @Component
 public class Init {
-    UserService userService;
-    RoleService roleService;
+    private UserService userService;
+    private RoleService roleService;
 
     @Autowired
     public Init(UserService userService, RoleService roleService) {
@@ -37,8 +37,6 @@ public class Init {
 
         Set<Role> adminRole = new HashSet<>(Set.of(adminRole1));
         Set<Role> userRole = new HashSet<>(Set.of(userRole1));
-        /*adminRole.add(roleService.getRoleById(1L));
-        userRole.add(roleService.getRoleById(2L));*/
 
         userService.addUser(new User("Ann", "S", "admin", "d@d.ru", 99, "user", adminRole));
         userService.addUser(new User("Mary", "N" , "user1","u1@d.ru", 115,  "user", userRole));
