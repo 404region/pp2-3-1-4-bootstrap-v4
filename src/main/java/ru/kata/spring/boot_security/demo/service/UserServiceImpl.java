@@ -14,6 +14,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findUserByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return user;
+        }
+        return null;
     }
 
     @Override
@@ -78,17 +84,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean isUsernameNotUnique(String username) {
-        return userRepository.findByUsername(username) != null;
+        return userRepository.findUserByUsername(username) != null;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
+        Optional<User> optionalUser = userRepository.findUserByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             return user;
-        } else {
-            throw new UsernameNotFoundException(String.format("User %s 404, I don't see him anywhere", username));
         }
+        return null;
     }
 
 }

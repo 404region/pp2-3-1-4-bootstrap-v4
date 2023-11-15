@@ -20,12 +20,10 @@
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" style="background-color: #282828">
-        <h4>
             <form class="navbar-form navbar-left">
                 <strong><span style="color: white" th:text="${usingUser.email}">VALUE</span></strong>
                 <span style="color: white" th:text="${' with roles: ' + usingUser.roles}">VALUE</span>
             </form>
-        </h4>
         <ul class="nav navbar-nav navbar-right">
             <form action="/logout">
                 <button style="color: gray" type="submit" class="btn btn-link">Logout</button>
@@ -313,11 +311,21 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Roles</label>
-                                                <select class="form-control form-control-static" multiple="multiple"
+                                                <!--<select class="form-control form-control-static" multiple="multiple"
                                                         size="2" th:field="*{roles}">
                                                     <option th:each="role : ${roles}"
                                                             th:value="${role.getRoleId()}"
                                                             th:text="${role.toString()}"></option>
+                                                </select>//-->
+                                                <select class="form-control" id ="rolesNew"
+                                                        name="roles"
+                                                        multiple="multiple">
+                                                    <option th:each="role : ${roles}"
+                                                            th:selected="${role.getRoleName()}"
+                                                            th:value="${role.getRoleId()}"
+                                                            th:text="${role.getRoleName()}">
+                                                        Role name
+                                                    </option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="btn btn-success btn-lg">Add new user</button>
