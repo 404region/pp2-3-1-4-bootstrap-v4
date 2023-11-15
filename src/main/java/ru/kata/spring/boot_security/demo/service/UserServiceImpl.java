@@ -30,19 +30,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    @Transactional
     public User getUserById(Long id) {
         return userRepository.getById(id);
     }
 
     @Override
-    @Transactional
     public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username).get();
     }
