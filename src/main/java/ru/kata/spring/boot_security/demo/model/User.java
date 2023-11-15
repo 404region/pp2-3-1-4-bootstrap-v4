@@ -189,4 +189,16 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return age == user.age && Objects.equals(userId, user.userId) && Objects.equals(lastName, user.lastName) && Objects.equals(name, user.name) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, lastName, age, name, username, email, password, roles);
+    }
 }

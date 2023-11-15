@@ -86,4 +86,15 @@ public class Role implements GrantedAuthority {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role role)) return false;
+        return active == role.active && Objects.equals(roleId, role.roleId) && Objects.equals(roleName, role.roleName) && Objects.equals(userSet, role.userSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roleId, roleName, active, userSet);
+    }
 }
